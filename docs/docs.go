@@ -19,8 +19,8 @@ var doc = `{
         "title": "{{.Title}}",
         "contact": {},
         "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+            "name": "Github:gin-swagger",
+            "url": "https://github.com/MoGD2018/gin-swagger"
         },
         "version": "{{.Version}}"
     },
