@@ -1,0 +1,233 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+host: 127.0.0.1:8080
+info:
+  contact: {}
+  description: 简单的后端登陆注册和文章分类API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: swagger API
+  version: "1.0"
+paths:
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登陆模块
+      parameters:
+      - description: 手机号
+        in: query
+        name: telephone
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登陆成功
+          schema:
+            type: string
+        "400":
+          description: 登陆失败
+          schema:
+            type: string
+      summary: 用户登陆接口
+      tags:
+      - 用户登陆
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册模块
+      parameters:
+      - in: query
+        name: createdAt
+        type: string
+      - in: query
+        name: id
+        type: integer
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: password
+        type: string
+      - in: query
+        name: telephone
+        type: string
+      - in: query
+        name: updatedAt
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功
+          schema:
+            type: string
+        "400":
+          description: 注册失败
+          schema:
+            type: string
+      summary: 用户注册接口
+      tags:
+      - 用户注册
+  /api/v1/example/helloworld:
+    get:
+      consumes:
+      - application/json
+      description: swagger测试用例
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: "false"
+          schema:
+            type: string
+      summary: example
+      tags:
+      - swagger的列子
+  /auth/info:
+    get:
+      consumes:
+      - application/json
+      description: 中间件验证模块
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登陆成功
+          schema:
+            type: string
+        "400":
+          description: 登陆失败
+          schema:
+            type: string
+      summary: 中间件验证接口
+      tags:
+      - 中间件验证
+  /categories:
+    post:
+      consumes:
+      - application/json
+      description: 创建类别模块
+      parameters:
+      - in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分类创建成功
+          schema:
+            type: string
+        "400":
+          description: 数据验证错误，分类名称必填
+          schema:
+            type: string
+      summary: 创建类别接口
+      tags:
+      - 创建类别
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除类别模块
+      parameters:
+      - description: 类别ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分类删除成功
+          schema:
+            type: string
+        "400":
+          description: 删除失败，请重试
+          schema:
+            type: string
+      summary: 删除类别接口
+      tags:
+      - 删除类别
+    get:
+      consumes:
+      - application/json
+      description: 查看类别模块
+      parameters:
+      - description: 类别ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分类查看成功
+          schema:
+            type: string
+        "400":
+          description: 分类不存在
+          schema:
+            type: string
+      summary: 查看类别接口
+      tags:
+      - 查看类别
+    put:
+      consumes:
+      - application/json
+      description: 更新类别模块
+      parameters:
+      - description: 类别ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改分类成功
+          schema:
+            type: string
+        "400":
+          description: 分类不存在
+          schema:
+            type: string
+      summary: 更新类别接口
+      tags:
+      - 更新类别
+swagger: "2.0"

@@ -1,0 +1,10 @@
+server:
+  port: 8080
+datasource:
+  host: mogd.c5dkdeacqtlg.ap-southeast-1.rds.amazonaws.com
+  port: 3306
+  database: test
+  username: admin
+  password: admin123456
+  charset: utf8
+  loc: Asia/Shanghai
