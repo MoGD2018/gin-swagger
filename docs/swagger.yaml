@@ -230,4 +230,145 @@ paths:
       summary: 更新类别接口
       tags:
       - 更新类别
+  /posts:
+    post:
+      consumes:
+      - application/json
+      description: 创建文章模块
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - in: query
+        name: category_id
+        required: true
+        type: integer
+      - in: query
+        name: content
+        required: true
+        type: string
+      - in: query
+        name: head_img
+        type: string
+      - in: query
+        maxLength: 10
+        name: title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            type: string
+        "400":
+          description: 数据验证错误
+          schema:
+            type: string
+      summary: 创建文章接口
+      tags:
+      - 创建文章
+  /posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除文章模块
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 文章删除成功
+          schema:
+            type: string
+        "400":
+          description: 删除失败
+          schema:
+            type: string
+      summary: 删除文章接口
+      tags:
+      - 删除文章
+    get:
+      consumes:
+      - application/json
+      description: 查看文章模块
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 查看成功
+          schema:
+            type: string
+        "400":
+          description: 文章不存在
+          schema:
+            type: string
+      summary: 查看文章接口
+      tags:
+      - 查看文章
+    put:
+      consumes:
+      - application/json
+      description: 更新文章模块
+      parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
+      - description: 文章ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - in: query
+        name: category_id
+        required: true
+        type: integer
+      - in: query
+        name: content
+        required: true
+        type: string
+      - in: query
+        name: head_img
+        type: string
+      - in: query
+        maxLength: 10
+        name: title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改成功
+          schema:
+            type: string
+        "400":
+          description: 文章不存在
+          schema:
+            type: string
+      summary: 更新文章接口
+      tags:
+      - 更新文章
 swagger: "2.0"
