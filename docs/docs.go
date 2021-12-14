@@ -523,7 +523,7 @@ var doc = `{
                 }
             },
             "delete": {
-                "description": "删除文章模块",
+                "description": "列出文章模块",
                 "consumes": [
                     "application/json"
                 ],
@@ -531,9 +531,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "删除文章"
+                    "列出文章"
                 ],
-                "summary": "删除文章接口",
+                "summary": "列出文章接口",
                 "parameters": [
                     {
                         "type": "string",
@@ -543,21 +543,61 @@ var doc = `{
                     },
                     {
                         "type": "integer",
-                        "description": "文章ID",
-                        "name": "id",
-                        "in": "path",
+                        "description": "分页",
+                        "name": "total",
+                        "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "category_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "content",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "created_at",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "head_img",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "updated_at",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "user_id",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "文章删除成功",
+                        "description": "成功",
                         "schema": {
                             "type": "string"
                         }
                     },
                     "400": {
-                        "description": "删除失败",
+                        "description": "失败",
                         "schema": {
                             "type": "string"
                         }
@@ -576,6 +616,23 @@ var doc = `{
                 "valid": {
                     "description": "Valid is true if Time is not NULL",
                     "type": "boolean"
+                }
+            }
+        },
+        "model.Category": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
                 }
             }
         }

@@ -38,6 +38,7 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 		postRoutes.PUT("/:id", postController.Update)
 		postRoutes.GET("/:id", postController.Show)
 		postRoutes.DELETE("/:id", postController.Delete)
+		postRoutes.DELETE("page/list", postController.PageList)
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
