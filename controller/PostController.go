@@ -8,10 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"log"
+	"strconv"
 )
 
 type IPostController interface {
 	RestController
+	PageList(ctx *gin.Context)
 }
 
 type PostController struct {
@@ -133,7 +135,7 @@ func (p PostController) Show(ctx *gin.Context) {
 	postID := ctx.Params.ByName("id")
 
 	var post model.Post
-	if err := p.DB.Where("id = ?", postID).First(&post).Error; err !=nil {
+	if err := p.DB.Preload("Category").Where("id = ?", postID).First(&post).Error; err !=nil {
 		response.Fail(ctx, nil,"文章不存在")
 		return
 	}
@@ -177,6 +179,34 @@ func (p PostController) Delete(ctx *gin.Context) {
 		return
 	}
 	response.Success(ctx, nil, "删除文章成功")
+}
+
+// PageList 列出文章模块
+// @Summary 列出文章接口
+// @Schemes
+// @Description 列出文章模块
+// @Tags 列出文章
+// @Accept application/json
+// @Produce application/json
+// @Param Authorization header string false "Bearer 用户令牌"
+// @Param object query model.Post false "查询参数"
+// @Success 200 {string} string "成功"
+// @Failure 400 {string} string "失败"
+// @Router /posts/{id} [delete]
+func (p PostController) PageList(ctx *gin.Context) {
+	// 获取分页参数
+	pageNum, _ := strconv.Atoi(ctx.DefaultQuery("pageNum","1"))
+	pageSize, _ := strconv.Atoi(ctx.DefaultQuery("pageSize","20"))
+
+	// 分页
+	var posts []model.Post
+	p.DB.Order("created_at desc").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&posts);
+
+	// 前端渲染分页需要知道总数
+	var total int64
+	p.DB.Model(model.Post{}).Count(&total)
+
+	response.Success(ctx, gin.H{"data": posts, "total": total}, "成功")
 }
 
 func NewPostController() IPostController {

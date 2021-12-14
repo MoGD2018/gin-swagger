@@ -8,6 +8,17 @@ definitions:
         description: Valid is true if Time is not NULL
         type: boolean
     type: object
+  model.Category:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
 host: 127.0.0.1:8080
 info:
   contact: {}
@@ -274,31 +285,55 @@ paths:
     delete:
       consumes:
       - application/json
-      description: 删除文章模块
+      description: 列出文章模块
       parameters:
       - description: Bearer 用户令牌
         in: header
         name: Authorization
         type: string
-      - description: 文章ID
-        in: path
-        name: id
+      - description: 分页
+        in: query
+        name: total
         required: true
+        type: integer
+      - in: query
+        name: category_id
+        type: integer
+      - in: query
+        name: content
+        type: string
+      - in: query
+        name: created_at
+        type: string
+      - in: query
+        name: head_img
+        type: string
+      - in: query
+        name: id
+        type: string
+      - in: query
+        name: title
+        type: string
+      - in: query
+        name: updated_at
+        type: string
+      - in: query
+        name: user_id
         type: integer
       produces:
       - application/json
       responses:
         "200":
-          description: 文章删除成功
+          description: 成功
           schema:
             type: string
         "400":
-          description: 删除失败
+          description: 失败
           schema:
             type: string
-      summary: 删除文章接口
+      summary: 列出文章接口
       tags:
-      - 删除文章
+      - 列出文章
     get:
       consumes:
       - application/json
